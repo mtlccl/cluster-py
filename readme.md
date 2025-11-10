@@ -1,3 +1,71 @@
+# Análise de Clusterização de Países
+
+Este projeto realiza uma análise de clusterização para agrupar países com características socioeconômicas semelhantes. São utilizados os algoritmos K-Means e Clusterização Hierárquica.
+
+## Pré-requisitos
+
+- Python 3.9+
+- `pip` e `venv` (geralmente inclusos na instalação do Python)
+
+## Instalação
+
+1. **Clone o repositório ou baixe os arquivos do projeto.**
+
+2. **Crie e ative um ambiente virtual:**
+
+   ```bash
+   # No Windows
+   python -m venv .venv
+   .venv\Scripts\activate
+
+   # No macOS/Linux
+   python3 -m venv .venv
+   source .venv/bin/activate
+   ```
+
+3. **Instale as dependências:**
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+## Uso
+
+1. **Baixe o conjunto de dados:**
+
+   O arquivo `Country-data.csv` é necessário. Faça o download a partir deste link:
+   [https://www.kaggle.com/datasets/rohan0y20/country-data](https://www.kaggle.com/datasets/rohan0y20/country-data)
+
+2. **Posicione o arquivo:**
+
+   Coloque o arquivo `Country-data.csv` na raiz do diretório do projeto (na mesma pasta que o arquivo `requirements.txt`).
+
+3. **Execute o script:**
+
+   O script principal está localizado em `trabls/trabalho.py`. Para executá-lo, navegue até a raiz do projeto e use o seguinte comando:
+
+   ```bash
+   python trabls/trabalho.py
+   ```
+
+## Resultados
+
+Ao executar o script, você verá no terminal:
+
+- A análise e interpretação dos clusters.
+- A comparação entre os resultados do K-Means e da Clusterização Hierárquica.
+
+Além disso, três arquivos de imagem serão gerados e salvos na raiz do projeto:
+
+- `boxplot_distribuicao_antes.png`: Mostra a distribuição dos dados antes do pré-processamento.
+- `boxplot_distribuicao_depois.png`: Mostra a distribuição dos dados após a normalização.
+- `dendograma_hierarquico.png`: O dendograma gerado pelo algoritmo de clusterização hierárquica.
+
+
+
+## Referências
+
+
 """
 ---------------------------------------------------------------------
 --- Parte 4: Escolha de algoritmos ---

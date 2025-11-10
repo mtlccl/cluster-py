@@ -14,7 +14,7 @@ warnings.filterwarnings('ignore', category=FutureWarning)
 pd.options.display.float_format = '{:,.2f}'.format
 
 #NOME_ARQUIVO = 'Country-data.csv'
-NOME_ARQUIVO = 'C:\\Users\\matle\\Downloads\\archive\\Country-data.csv'
+NOME_ARQUIVO = 'Country-data.csv'
 N_CLUSTERS = 3
 RANDOM_STATE = 42
 
