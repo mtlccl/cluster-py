@@ -40,7 +40,7 @@ def analisar_kmeans(centroides_kmeans, scaler, colunas):
     """Inverte a transformação dos centróides e os imprime."""
     centroides_originais = scaler.inverse_transform(centroides_kmeans)
     centroides_df = pd.DataFrame(centroides_originais, columns=colunas)
-    print("\nParte 2.2a: Interpretação dos clusters K-Médias (Médias na Escala Original):")
+    print("\nParte 3.2a: Interpretação dos clusters K-Médias (Médias na Escala Original):")
     print(centroides_df.to_markdown(floatfmt=".2f"))
     print("\nAnálise da distribuição (interpretação preliminar):")
     print(f"  - Cluster 0: Parece ter alta 'child_mort', baixa 'exports', 'imports', 'income' e 'gdpp'. Sugere países com maiores desafios socioeconômicos.")
@@ -53,7 +53,7 @@ def encontrar_medoides(dados_processados, dados_originais, grupos_kmeans, centro
 
     """Identifica o país representante (medóide) de cada cluster, localizando o ponto de dados real mais próximo do centróide."""
 
-    print("\nParte 2.2b: País mais representativo (Medóide) de cada cluster K-Médias:")
+    print("\nParte 3.2b: País mais representativo (Medóide) de cada cluster K-Médias:")
     for i in range(N_CLUSTERS):
         pontos_no_cluster = dados_processados[grupos_kmeans == i]
         centroide_cluster = centroides_kmeans[i]
@@ -69,7 +69,7 @@ def encontrar_medoides(dados_processados, dados_originais, grupos_kmeans, centro
 def plotar_dendograma(dados_processados):
     """Gera, plota e salva o dendrograma da clusterização hierárquica (Ward), incluindo uma linha de corte para k=3."""
 
-    print("\nParte 2.1b e 2.3: Executando Clusterização Hierárquica (Ward) e gerando Dendograma...")
+    print("\nParte 3.3b e 3.4: Executando Clusterização Hierárquica (Ward) e gerando Dendograma...")
     matriz_linkage = linkage(dados_processados, method='ward')
     plt.figure(figsize=(20, 10))
     plt.title("Dendograma da Clusterização Hierárquica (Método de Ward)")
@@ -82,7 +82,7 @@ def plotar_dendograma(dados_processados):
     plt.savefig(nome_arquivo_fig, dpi=300, bbox_inches='tight')
     print(f"Gráfico salvo como '{nome_arquivo_fig}'")
     plt.show()
-    print("\nInterpretação (2.3):")
+    print("\nInterpretação (3.3):")
     print("O dendograma mostra como os países/clusters são fundidos hierarquicamente.")
     print("O método de 'Ward' minimiza a variância dentro dos clusters fundidos.")
     print("A altura no eixo Y representa a distância entre os clusters sendo fundidos.")
@@ -94,7 +94,7 @@ def plotar_dendograma(dados_processados):
 def comparar_clusters(dados, grupos_kmeans, matriz_linkage):
     """Adiciona os resultados dos clusters (K-Means e Hierárquico) ao DataFrame para permitir a comparação."""   
 
-    print("\nParte 2.4: Comparação K-Médias vs. Hierárquica")
+    print("\nParte 3.5: Comparação K-Médias vs. Hierárquica")
     dados['grupo_kmeans'] = grupos_kmeans
     grupos_hierarq = cut_tree(matriz_linkage, n_clusters=N_CLUSTERS).flatten()
     dados['grupo_hierarq'] = grupos_hierarq
@@ -102,7 +102,7 @@ def comparar_clusters(dados, grupos_kmeans, matriz_linkage):
     print("Tabela Cruzada (Contingência):")
     print("(Linhas: K-Médias, Colunas: Hierárquico)")
     print(tabela_cruzada)
-    print("\nAnálise (2.4):")
+    print("\nAnálise (3.5):")
     print("A tabela cruzada mostra a sobreposição entre os clusters dos dois métodos.")
     print("Observamos uma forte concordância. Por exemplo, a maioria dos países no 'grupo_kmeans' 0 está no 'grupo_hierarq' 1 (os rótulos 0, 1, 2 são arbitrários entre os métodos).")
     print("Similarmente, K-Médias 1 corresponde majoritariamente ao Hierárquico 2, e K-Médias 2 ao Hierárquico 0.")
@@ -118,20 +118,20 @@ def main():
     
     print("Iniciando Análise de Clusterização de Países...")
     
-    # --- Parte 1: Escolha de base de dados ---
+    # --- Parte 2: Escolha de base de dados ---
     dados = carregar_dados(NOME_ARQUIVO)
     if dados is None:
         return
 
-    # 1.2: Quantos países?
+    # 2.2: Quantos países?
     n_paises = len(dados)
-    print(f"\nParte 1.2: Número de países no dataset: {n_paises}")
+    print(f"\nParte 2.2: Número de países no dataset: {n_paises}")
 
     dados_features = dados.drop('country', axis=1).copy()
     colunas_features = dados_features.columns
 
-    # 1.3: Gráficos da faixa dinâmica (Antes)
-    print("\nAnálise (1.3):")
+    # 2.3: Gráficos da faixa dinâmica (Antes)
+    print("\nAnálise (2.3):")
     print("Os boxplots mostram que as variáveis estão em escalas drasticamente diferentes.")
     plotar_distribuicoes(dados_features, 
                          'Faixa Dinâmica - ANTES do Pré-processamento', 
@@ -139,8 +139,8 @@ def main():
     
 
 
-    # 1.4: Pré-processamento
-    print("\nParte 1.4: Realizando pré-processamento (StandardScaler)...")
+    # 2.4: Pré-processamento
+    print("\nParte 2.4: Realizando pré-processamento (StandardScaler)...")
     scaler = StandardScaler()
     dados_processados = scaler.fit_transform(dados_features)
     dados_processados_df = pd.DataFrame(dados_processados, columns=colunas_features)
@@ -149,26 +149,25 @@ def main():
     plotar_distribuicoes(dados_processados_df, 
                          'Faixa Dinâmica - DEPOIS do Pré-processamento', 
                          'boxplot_distribuicao_depois.png')
-    print("Análise (1.4): Após o StandardScaler, todas as variáveis estão centradas em 0 e com desvio padrão 1. Agora estão prontas para a clusterização.")
-
-    # --- Parte 2: Clusterização ---
+    print("Análise (2.4): Após o StandardScaler, todas as variáveis estão centradas em 0 e com desvio padrão 1. Agora estão prontas para a clusterização.")
+    # --- Parte 3: Clusterização ---
     
-    # 2.1a: K-Médias
-    print("\nParte 2.1a: Executando K-Médias (K=3)...")
+    # 3.1a: K-Médias
+    print("\nParte 3.1a: Executando K-Médias (K=3)...")
     kmeans = KMeans(n_clusters=N_CLUSTERS, random_state=RANDOM_STATE, n_init=10)
     grupos_kmeans = kmeans.fit_predict(dados_processados)
     centroides_kmeans = kmeans.cluster_centers_
 
-    # 2.2: Análise K-Médias
+    # 3.2: Análise K-Médias
     analisar_kmeans(centroides_kmeans, scaler, colunas_features)
     
-    # 2.2b: Encontrar Medóides
+    # 3.2b: Encontrar Medóides
     encontrar_medoides(dados_processados, dados, grupos_kmeans, centroides_kmeans)
 
-    # 2.1b e 2.3: Clusterização Hierárquica e Dendograma
+    # 3.3b e 3.4: Clusterização Hierárquica e Dendograma
     matriz_linkage = plotar_dendograma(dados_processados)
 
-    # 2.4: Comparação
+    # 3.5: Comparação
     if matriz_linkage is not None:
         comparar_clusters(dados, grupos_kmeans, matriz_linkage)
     

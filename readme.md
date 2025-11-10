@@ -1,6 +1,6 @@
 """
 ---------------------------------------------------------------------
---- Parte 3: Escolha de algoritmos ---
+--- Parte 4: Escolha de algoritmos ---
 ---------------------------------------------------------------------
 
 1 - Escreva em tópicos as etapas do algoritmo de K-médias até sua convergência.
