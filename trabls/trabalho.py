@@ -131,15 +131,13 @@ def main():
     colunas_features = dados_features.columns
 
     # 1.3: Gráficos da faixa dinâmica (Antes)
+    print("\nAnálise (1.3):")
+    print("Os boxplots mostram que as variáveis estão em escalas drasticamente diferentes.")
     plotar_distribuicoes(dados_features, 
                          'Faixa Dinâmica - ANTES do Pré-processamento', 
                          'boxplot_distribuicao_antes.png')
     
-    print("\nAnálise (1.3):")
-    print("Os boxplots mostram que as variáveis estão em escalas drasticamente diferentes.")
-    print("Por exemplo, 'gdpp' e 'income' estão na casa dos milhares, enquanto 'child_mort' e 'inflation' têm valores muito menores.")
-    print("Algoritmos baseados em distância (como K-Médias e Hierárquico) serão dominados pelas variáveis de maior escala ('gdpp', 'income').")
-    print("O que deve ser feito: Os dados DEVEM ser normalizados/padronizados (ex: StandardScaler) antes da clusterização para que todas as variáveis tenham o mesmo 'peso'.")
+
 
     # 1.4: Pré-processamento
     print("\nParte 1.4: Realizando pré-processamento (StandardScaler)...")
